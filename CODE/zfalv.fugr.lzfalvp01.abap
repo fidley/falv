@@ -26,28 +26,6 @@ class lcl_output implementation.
 
   method pbo.
     show( ).
-    if sy-dynnr eq zcl_falv=>c_screen_popup and first_output eq abap_true and
-       cl_gui_alv_grid=>offline( ) is initial.
-      cl_gui_cfw=>flush(
-        exceptions
-          cntl_system_error = 0
-          cntl_error        = 0
-          others            = 0  ).
-
-      falv->parent->set_enable(
-        exporting
-          enable            =  abap_true   " Enable/disable state flag
-        exceptions
-          cntl_error        = 0
-          cntl_system_error = 0
-          others            = 0 ).
-      if first_output eq abap_true.
-        data(falv_popup) = falv->create_by_copy(
-                          i_popup           = abap_true
-                     ).
-        falv  ?= falv_popup.
-      endif.
-    endif.
 
     falv->pbo( iv_dynnr = iv_dynnr ).
     if first_output eq abap_true.

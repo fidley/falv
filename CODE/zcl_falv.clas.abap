@@ -43,7 +43,7 @@ class zcl_falv definition
                  yellow_intensified_inversed  type char4 value 'C311',
                  yellow_inversed              type char4 value 'C301',
                  light_blue                   type char4 value 'C400',
-                 light_blue_itensified        type char4 value '410',
+                 light_blue_itensified        type char4 value 'C410',
                  light_blue_intesified_invers type char4 value 'C411',
                  light_blue_inversed          type char4 value 'C401',
                  green                        type char4 value 'C500',
@@ -1037,12 +1037,19 @@ class zcl_falv implementation.
 
   method create_main_cont_for_full_scr.
 
-    r_custom_container  = cast cl_gui_container( new cl_gui_custom_container(
-         container_name = cc_name
-         dynnr          = switch #( i_popup when abap_true then c_screen_popup
-                                            when abap_false then c_screen_full )
-         repid          = c_fscr_repid
-         no_autodef_progid_dynnr = abap_true ) ).
+    IF i_popup EQ abap_true.
+
+      CALL FUNCTION 'Z_FALV_CREATE_MAIN_CONTAINER'
+        IMPORTING
+          main_container = r_custom_container.
+    ELSE.
+      r_custom_container  = CAST cl_gui_container( NEW cl_gui_custom_container(
+           container_name = cc_name
+           dynnr          = c_screen_full
+           repid          = c_fscr_repid
+           no_autodef_progid_dynnr =  abap_true  ) ).
+    ENDIF.
+
 
   endmethod.
 
@@ -1803,7 +1810,7 @@ class zcl_falv implementation.
     check i_row is not initial and i_field is not initial.
     get_frontend_layout( importing es_layout =  lvc_layout ).
 
-    if sy-subrc eq 0.
+    " if sy-subrc eq 0. " The value of SY-SUBRC is always set to 0 by CALL METHOD GET_FRONTEND_LAYOUT.
       if lvc_layout-stylefname is not initial.
         assign outtab->* to <outtab>.
         assign <outtab>[ i_row ] to field-symbol(<line>).
@@ -1833,7 +1840,7 @@ class zcl_falv implementation.
           r_enabled = abap_true.
         endif.
       endif.
-    endif.
+    " endif.
   endmethod.
 
 

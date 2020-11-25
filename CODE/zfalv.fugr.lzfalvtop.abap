@@ -10,6 +10,9 @@ data: call_stack type standard table of char22.
 field-symbols: <out> type t_output.
 include lzfalvd01.                         " Local class definition
 
+DATA: dummy_container TYPE REF TO cl_gui_container.
+DATA: create_dummy_container TYPE abap_bool.
+
 data: g_par01_type type char255.
 data: g_par02_type type char255.
 data: g_par03_type type char255.

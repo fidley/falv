@@ -65,6 +65,24 @@
      </DOCUMENTATION>
     </item>
     <item>
+     <FUNCNAME>Z_FALV_CREATE_MAIN_CONTAINER</FUNCNAME>
+     <SHORT_TEXT>Main Container create for popup window</SHORT_TEXT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>MAIN_CONTAINER</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>REF TO CL_GUI_CONTAINER</TYP>
+       <REF_CLASS>X</REF_CLASS>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>MAIN_CONTAINER</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
      <FUNCNAME>Z_FALV_DISPLAY</FUNCNAME>
      <SHORT_TEXT>Display FALV</SHORT_TEXT>
      <IMPORT>

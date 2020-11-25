@@ -67,6 +67,9 @@ start-of-selection.
   ).
   falv_redef->delete_button( zcl_falv=>mc_fc_detail ).
   falv_redef->display( ).
+
+  zcl_falv=>create( exporting i_popup = abap_true changing ct_table = sflight   )->display( ).
+  falv_redef->display( ).
   "creation of standard falv
   data(falv_stand) = zcl_falv=>create( exporting i_applog_embedded = abap_true changing ct_table = sflight   ).
 
