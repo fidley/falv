@@ -250,6 +250,7 @@ class zcl_falv definition
       returning
         value(rv_column)    type ref to zcl_falv_column .
     methods soft_refresh
+      importing !IV_DROP_FILTERS type ABAP_BOOL default ABAP_TRUE
       returning value(r_falv) type ref to zcl_falv .
     methods set_mark_field
       importing
@@ -2531,7 +2532,7 @@ class zcl_falv implementation.
     me->refresh_table_display(
       exporting
         is_stable      =     conv #( 'XX' ) " With Stable Rows/Columns
-        i_soft_refresh =     abap_true" Without Sort, Filter, etc.
+        i_soft_refresh =     iv_drop_filters" Without Sort, Filter, etc.
       exceptions
         finished       = 0
         others         = 0 ).
