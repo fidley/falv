@@ -1909,14 +1909,19 @@ CLASS ZCL_FALV IMPLEMENTATION.
 
 
   METHOD refresh_toolbar.
-    CHECK cl_gui_alv_grid=>offline( ) IS INITIAL.
-    CHECK grid->m_init_toolbar = space.
-    TRY.
-        set_toolbar_interactive( ).
-      CATCH cx_root ##NO_HANDLER.
-        " in case method is called before the display of grid
-        " no need to do anything with that
-    ENDTRY.
+    CONSTANTS m_init_toolbar TYPE string VALUE 'M_INIT_TOOLBAR' ##NO_TEXT.
+    check cl_gui_alv_grid=>offline( ) is initial.
+    assign grid->(m_init_toolbar) to field-symbol(<init_toolbar>). "S/4 2023 compatible
+    if <init_toolbar> is ASSIGNED.
+        check <init_toolbar> eq space.
+    endif.
+    try.
+        me->set_toolbar_interactive(  ).
+      catch cx_root.
+        "in case method is called before the display of grid
+        "no need to do anything with that
+        clear sy-subrc.
+    endtry.
     r_falv = me.
   ENDMETHOD.
 
