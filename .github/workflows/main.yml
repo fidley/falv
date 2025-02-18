@@ -1,4 +1,4 @@
-name: lint
+name: abapLint
 
 on: [push, pull_request]
 
