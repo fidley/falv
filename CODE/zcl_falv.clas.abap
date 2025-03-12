@@ -337,6 +337,14 @@ public section.
       value(IV_ROW) type LVC_S_ROID-ROW_ID
     returning
       value(R_FALV) type ref to ZCL_FALV .
+methods set_cell_styles
+    importing
+      value(IV_FIELDNAME) type FIELDNAME
+      value(IV_ROW) type LVC_S_ROID-ROW_ID
+      value(IV_STYLE) type LVC_STYLE
+      value(IV_STYLE2) type LVC_STYLE optional
+    returning
+      value(R_FALV) type ref to ZCL_FALV .
   methods SET_CELL_ENABLED
     importing
       value(IV_FIELDNAME) type FIELDNAME
@@ -2118,6 +2126,35 @@ CLASS ZCL_FALV IMPLEMENTATION.
           CATCH cx_sy_itab_line_not_found.
             INSERT VALUE #( fieldname = iv_fieldname
                             style     = mc_style_button ) INTO TABLE <styles>.
+        ENDTRY.
+      ENDIF.
+    ENDIF.
+  ENDMETHOD.
+
+  METHOD set_cell_styles.
+    r_falv = me.
+    FIELD-SYMBOLS <outtab> TYPE STANDARD TABLE.
+    FIELD-SYMBOLS <styles> TYPE lvc_t_styl.
+    get_frontend_layout( IMPORTING es_layout = lvc_layout ).
+    IF lvc_layout-stylefname IS INITIAL.
+      RETURN.
+    ENDIF.
+    ASSIGN outtab->* TO <outtab>.
+    IF sy-subrc <> 0.
+      RETURN.
+    ENDIF.
+
+    ASSIGN <outtab>[ iv_row ] TO FIELD-SYMBOL(<row>).
+    IF sy-subrc = 0.
+      ASSIGN COMPONENT lvc_layout-stylefname OF STRUCTURE <row> TO <styles>.
+      IF sy-subrc = 0.
+        TRY.
+            <styles>[ fieldname = iv_fieldname ]-style = iv_style.
+            <styles>[ fieldname = iv_fieldname ]-style2 = iv_style2.
+          CATCH cx_sy_itab_line_not_found.
+            INSERT VALUE #( fieldname = iv_fieldname
+                            style     = iv_style
+                            style2   =  iv_style2 ) INTO TABLE <styles>.
         ENDTRY.
       ENDIF.
     ENDIF.

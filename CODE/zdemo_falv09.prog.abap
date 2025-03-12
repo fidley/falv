@@ -42,6 +42,15 @@ class lcl_test implementation.
             iv_row       = es_row_no-row_id
         ).
 
+
+
+        set_cell_styles(
+          EXPORTING
+            iv_fieldname = 'CARRID'
+            iv_row       = es_row_no-row_id
+            iv_style  = '00000020'
+*            style2 =
+        ).
         me->soft_refresh( ).
     endcase.
   endmethod.
