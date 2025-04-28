@@ -1,4 +1,4 @@
-FUNCTION Z_FALV_DISPLAY.
+function z_falv_display.
 *"----------------------------------------------------------------------
 *"*"Local Interface:
 *"  IMPORTING
@@ -21,7 +21,7 @@ FUNCTION Z_FALV_DISPLAY.
     assign outputs[ table_line->falv = io_falv ] to <out>.
     if sy-subrc eq 0.
       current_guid = <out>->guid.
-      <out>->pbo( iv_dynnr = sy-dynnr ).
+*      <out>->pbo( iv_dynnr = sy-dynnr ).
       if <out>->falv->built_in_screen is not initial.
         "! When you reuse FALV sometimes it needs to be refreshed
         "! in order to show on screen. Like with Error log

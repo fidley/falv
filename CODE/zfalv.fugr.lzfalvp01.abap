@@ -9,7 +9,8 @@ class lcl_output implementation.
   method show.
     check cl_gui_alv_grid=>offline( ) is initial.
     loop at outputs assigning field-symbol(<hide>) where table_line->guid ne me->guid
-                                                     and table_line->falv->screen eq falv->screen.
+                                                     "and table_line->falv->screen eq falv->screen
+                                                     .
       <hide>->hide( ).
     endloop.
 
