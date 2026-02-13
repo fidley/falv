@@ -1309,7 +1309,9 @@ CLASS zcl_falv IMPLEMENTATION.
           iv_end_column   = iv_end_column.
     ELSE.
       ASSIGN outtab->* TO <outtab>.
-
+      LOOP AT fcat ASSIGNING FIELD-SYMBOL(<fcat>).
+        <fcat>-tech_form = space.
+      ENDLOOP.
       set_table_for_first_display( EXPORTING  i_buffer_active               = buffering_active   " Buffering Active
                                               i_bypassing_buffer            = bypassing_buffer   " Switch Off Buffer
                                               is_variant                    = variant
