@@ -1076,6 +1076,11 @@ CLASS zcl_falv_column IMPLEMENTATION.
   METHOD set_edit_mask.
     change_setting( iv_value   = iv_value
                     iv_setting = 'EDIT_MASK' ).
+    if iv_value is not initial.
+       set_tech_form( 7 ).
+    else.
+       set_tech_form( 90 ).
+    endif.
     r_column = me.
   ENDMETHOD.
 
